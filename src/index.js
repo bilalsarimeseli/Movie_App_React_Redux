@@ -12,4 +12,9 @@ import "./index.css";
 
 const middleWaredStore = applyMiddleware(promiseMiddleware)(createStore);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={middleWaredStore(reducers)}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
