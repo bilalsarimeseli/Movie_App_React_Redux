@@ -43,15 +43,17 @@ export default function(state = defaultState, action) {
         totalPages: action.payload.total_pages,
         searchTerm: action.payload.searchTerm,
       };
-      case CLEAR_MOVIES:
-          return {
-              ...state,
-              movies: []
-          }
-          case SHOW_LOADING_SPINNER:
-              return {
-                  ...state,
-                  loading: true
-              }
+    case CLEAR_MOVIES:
+      return {
+        ...state,
+        movies: [],
+      };
+    case SHOW_LOADING_SPINNER:
+      return {
+        ...state,
+        loading: true,
+      };
+    default:
+      return state;
   }
 }
