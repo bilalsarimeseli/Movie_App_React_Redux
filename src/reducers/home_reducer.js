@@ -4,18 +4,25 @@ import {
   SEARCH_MOVIES,
   GET_POPULAR_MOVIES,
   LOAD_MORE_MOVIES,
-} from "..actions/";
+  SET_POPULAR_PERSISTED_STATE
+} from '../actions';
+
 const defaultState = {
   movies: [],
   heroImage: null,
   loading: false,
   currentPage: 0,
   totalPages: 0,
-  searchTerm: "",
-};
+  searchTerm: ''
+}
 
 export default function(state = defaultState, action) {
-  switch (action.type) {
+  switch(action.type) {
+    case SET_POPULAR_PERSISTED_STATE:
+      return {
+       ...state,
+       ...action.payload
+      }
     case GET_POPULAR_MOVIES:
       return {
         ...state,
@@ -24,16 +31,16 @@ export default function(state = defaultState, action) {
         loading: false,
         currentPage: action.payload.page,
         totalPages: action.payload.total_pages,
-        searchTerm: "",
-      };
+        searchTerm: ""
+      }
     case LOAD_MORE_MOVIES:
       return {
         ...state,
         movies: [...state.movies, ...action.payload.results],
         loading: false,
-        currentPage: action.payload.payload,
-        totalPages: action.payload.total_pages,
-      };
+        currentPage: action.payload.page,
+        totalPages: action.payload.total_pages
+      }
     case SEARCH_MOVIES:
       return {
         ...state,
@@ -41,18 +48,18 @@ export default function(state = defaultState, action) {
         loading: false,
         currentPage: action.payload.page,
         totalPages: action.payload.total_pages,
-        searchTerm: action.payload.searchTerm,
-      };
+        searchTerm: action.payload.searchTerm
+      }
     case CLEAR_MOVIES:
       return {
         ...state,
-        movies: [],
-      };
+        movies: []
+      }
     case SHOW_LOADING_SPINNER:
       return {
         ...state,
-        loading: true,
-      };
+        loading: true
+      }
     default:
       return state;
   }

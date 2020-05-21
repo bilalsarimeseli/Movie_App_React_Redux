@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   getPopularMovies,
   showLoadingSpinner,
   searchMovies,
   clearMovies,
   loadMoreMovies,
-  setPopularPersistedState,
-} from "../actions";
-import Home from "../components/Home/Home";
+  setPopularPersistedState
+} from '../actions';
+import Home from '../components/Home/Home';
 
 class HomeContainer extends Component {
-  componentDidMount() {
+  componentDidMount(){
     if (sessionStorage.getItem("HomeState")) {
       const home = JSON.parse(sessionStorage.getItem("HomeState"));
       this.props.setPopularPersistedState(home);
@@ -31,25 +31,25 @@ class HomeContainer extends Component {
   getMovies = () => {
     this.props.showLoadingSpinner();
     this.props.getPopularMovies();
-  };
+  }
 
-  searchMovies = (searchTerm) => {
+  searchMovies = searchTerm => {
     this.props.clearMovies();
     this.props.showLoadingSpinner();
     this.props.searchMovies(searchTerm);
-  };
+  }
 
   loadMoreMovies = () => {
     const { searchTerm, currentPage } = this.props;
 
     this.props.showLoadingSpinner();
     this.props.loadMoreMovies(searchTerm, currentPage);
-  };
+  }
 
   render() {
     return (
       <Home
-        {...this.props}
+        { ...this.props }
         searchMovies={this.searchMovies}
         loadMoreMovies={this.loadMoreMovies}
       />
@@ -57,9 +57,9 @@ class HomeContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return state.home;
-};
+}
 
 const mapDispatchToProps = {
   getPopularMovies,
@@ -67,7 +67,10 @@ const mapDispatchToProps = {
   searchMovies,
   clearMovies,
   loadMoreMovies,
-  setPopularPersistedState,
-};
+  setPopularPersistedState
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeContainer);

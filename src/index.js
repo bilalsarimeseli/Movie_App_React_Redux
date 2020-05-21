@@ -1,20 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-//Let's import Redux First.
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import { promiseMiddleware } from "redux-promise";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import App from "./components/App/App";
-import reducers from "./reducers";
+// Redux stuff
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import promiseMiddleware from 'redux-promise';
 
-import "./index.css";
+import App from './components/App/App';
+import reducers from './reducers';
 
-const middleWaredStore = applyMiddleware(promiseMiddleware)(createStore);
+import './index.css';
+
+const storeWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
 
 ReactDOM.render(
-  <Provider store={middleWaredStore(reducers)}>
+  <Provider store={storeWithMiddleware(reducers)}>
     <App />
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
+  , document.getElementById('root')
 );
